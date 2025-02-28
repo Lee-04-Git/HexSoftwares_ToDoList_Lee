@@ -20,9 +20,14 @@ const elements = {
 };
 
 // Keeps track of tasks
-let tasksState = [];
+let tasksState = JSON.parse(localStorage.getItem("tasks")) || [];
 let lastAddedTaskId = null;
 let isDeletingTask = false; // Prevents animations when deleting
+
+// Save tasks to local storage
+function saveTasksToLocalStorage() {
+  localStorage.setItem("tasks", JSON.stringify(tasksState));
+}
 
 // Show or hide a modal with a quick fade effect
 function toggleModal(modal, show) {
@@ -32,7 +37,7 @@ function toggleModal(modal, show) {
 
     setTimeout(() => {
       modal.classList.remove("quick-fade-in");
-    }, 200); // Matches the task animation timing
+    }, 200);
   } else {
     modal.style.display = "none";
   }
@@ -41,11 +46,9 @@ function toggleModal(modal, show) {
 // Display tasks on the page based on the selected filter
 function renderTasks() {
   const selectedStatus = elements.filterDropdown.value.toLowerCase();
-
   elements.taskList.innerHTML = ""; // Clear existing tasks
 
   tasksState.forEach((task) => {
-    // Show all tasks if "All" is selected or if they match the filter
     if (
       selectedStatus === "all" ||
       selectedStatus === "filter by task status" ||
@@ -58,10 +61,8 @@ function renderTasks() {
       taskCard.innerHTML = `<h3>${task.title}</h3>`;
 
       taskCard.addEventListener("click", () => openEditModal(task));
-
       elements.taskList.appendChild(taskCard);
 
-      // Add fade-in effect when a new task appears
       taskCard.classList.add("quick-fade-in");
       setTimeout(() => {
         taskCard.classList.remove("quick-fade-in");
@@ -70,18 +71,19 @@ function renderTasks() {
   });
 }
 
-// Add a new task to the task list
+// Add a new task
 function addTask(taskTitle, taskStatus) {
   const task = { id: Date.now(), title: taskTitle, status: taskStatus };
   tasksState.push(task);
   lastAddedTaskId = task.id;
+  saveTasksToLocalStorage(); // Save to local storage
   renderTasks();
 }
 
 // Open the modal for adding a new task
 function openTaskModal() {
   elements.taskTitle.value = "";
-  elements.taskStatus.value = "To-Do"; // Reset dropdown to default
+  elements.taskStatus.value = "To-Do";
   toggleModal(elements.newTaskModal, true);
 
   elements.taskForm.onsubmit = (event) => {
@@ -121,29 +123,38 @@ function saveTask(task) {
   if (updatedTitle) {
     task.title = updatedTitle;
     task.status = updatedStatus;
+    saveTasksToLocalStorage(); // Save changes
     renderTasks();
   }
 
   toggleModal(elements.editTaskModal, false);
 }
 
-// Remove a task from the list
+// Remove a task
 function deleteTask(taskId) {
-  isDeletingTask = true; // Prevents animations while deleting
+  isDeletingTask = true;
   tasksState = tasksState.filter((task) => task.id !== taskId);
+  saveTasksToLocalStorage(); // Update local storage
   renderTasks();
   toggleModal(elements.editTaskModal, false);
 }
 
-// Set the filter dropdown to "To-Do" by default when the page loads
+// Load tasks and saved dropdown filter status from local storage
 window.onload = function () {
-  elements.filterDropdown.value = "To-Do";
+  // Retrieve saved filter status from localStorage or default to "To-Do"
+  const savedStatus = localStorage.getItem("selectedTaskStatus") || "To-Do";
+  elements.filterDropdown.value = savedStatus;
   renderTasks();
 };
 
-// Add event listeners for UI actions
+// Add event listener to save the selected status in local storage
+elements.filterDropdown.addEventListener("change", () => {
+  localStorage.setItem("selectedTaskStatus", elements.filterDropdown.value);
+  renderTasks();
+});
+
+// Add event listeners
 elements.addNewTaskBtn.addEventListener("click", openTaskModal);
 elements.cancelTaskBtn.addEventListener("click", () =>
   toggleModal(elements.newTaskModal, false)
 );
-elements.filterDropdown.addEventListener("change", renderTasks);
