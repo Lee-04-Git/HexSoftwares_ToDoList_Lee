@@ -1,13 +1,98 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
+    <title>To-Do App</title>
+    <link rel="stylesheet" href="src/style.css" />
   </head>
   <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
+    <!-- Navbar with App Logo -->
+    <nav class="navbar">
+      <img src="src/img/To-Do.png" alt="To-Do App Logo" />
+    </nav>
+
+    <!-- Task Controls for Adding and Filtering -->
+    <div class="task-controls">
+      <div class="task-actions">
+        <!-- Dropdown to Filter Tasks -->
+        <select id="task-progress">
+          <option disabled selected>Filter By Task Status</option>
+          <option>All</option>
+          <option>To-Do</option>
+          <option>Doing</option>
+          <option>Done</option>
+        </select>
+
+        <!-- Button to Open Task Modal -->
+        <button id="add-task-btn" class="icon-btn">
+          <img src="src/img/plus.png" alt="Add Task" />
+        </button>
+      </div>
+    </div>
+
+    <!-- Task List Section -->
+    <section id="task-list"></section>
+
+    <!-- Task Creation Modal -->
+    <div id="task-modal" class="modal">
+      <form id="task-form" class="modal-content">
+        <h2>Create Task</h2>
+
+        <!-- Input for Task Title -->
+        <div class="input-group">
+          <label for="task-title">Title</label>
+          <input type="text" id="task-title" required />
+        </div>
+
+        <!-- Dropdown for Task Status -->
+        <div class="input-group">
+          <label for="task-status">Progress</label>
+          <select id="task-status">
+            <option>To-Do</option>
+            <option>Doing</option>
+            <option>Done</option>
+          </select>
+        </div>
+
+        <!-- Buttons for Adding or Canceling -->
+        <div class="button-group">
+          <button type="submit">Add</button>
+          <button type="button" id="cancel-task-btn">Cancel</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Task Edit Modal -->
+    <div id="edit-task-modal" class="modal">
+      <form id="edit-task-form" class="modal-content">
+        <h2>Edit Task</h2>
+
+        <!-- Input for Editing Task Title -->
+        <div class="input-group">
+          <label for="edit-task-title">Title</label>
+          <input type="text" id="edit-task-title" required />
+        </div>
+
+        <!-- Dropdown for Updating Task Status -->
+        <div class="input-group">
+          <label for="edit-task-status">Progress</label>
+          <select id="edit-task-status">
+            <option>To-Do</option>
+            <option>Doing</option>
+            <option>Done</option>
+          </select>
+        </div>
+
+        <!-- Buttons for Saving, Deleting, or Canceling -->
+        <div class="button-group">
+          <button type="submit">Save Changes</button>
+          <button type="button" id="delete-task-btn">Delete Task</button>
+          <button type="button" id="cancel-edit-task-btn">Cancel</button>
+        </div>
+      </form>
+    </div>
+
+    <script src="src/main.js"></script>
   </body>
 </html>
