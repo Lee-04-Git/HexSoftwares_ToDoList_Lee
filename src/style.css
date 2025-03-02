@@ -85,15 +85,29 @@ body {
 
 /* --------------------------------- Task List --------------------------------- */
 #task-list {
+  position: relative;
   margin: 20px auto;
   width: 55%;
   min-height: 900px;
   text-align: left;
-  background-color: #fffdf8; /* Keep the existing color */
+  background-color: #fffdf8;
   padding: 20px;
-  border-radius: 0; /* Sharp edges */
+  border-radius: 0;
   box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.2),
-    -4px -4px 15px rgba(255, 255, 255, 0.5); /* Stronger shadow for 3D effect */
+    -4px -4px 15px rgba(255, 255, 255, 0.5);
+}
+
+.no-tasks-message {
+  position: absolute;
+  top: 20%; /* Move it higher */
+  left: 50%;
+  transform: translate(-50%, -20%); /* Adjust translation to keep it centered */
+  font-size: 2rem;
+  opacity: 70%;
+  color: rgba(44, 43, 43, 0.5);
+  pointer-events: none;
+  text-align: center;
+  font-family: "Arial", sans-serif;
 }
 
 /* --------------------------------- Task Card --------------------------------- */
@@ -137,11 +151,19 @@ body {
 
 .modal-content {
   background: #fffdf8;
-  padding: 25px;
+  padding: 30px;
   border-radius: 10px;
-  width: 350px;
+  width: 370px;
   text-align: left;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content label,
+.modal-content select,
+.modal-content input {
+  display: block;
+  margin-bottom: 15px;
+  width: 100%;
 }
 
 /* --------------------------------- Form Inputs --------------------------------- */
@@ -193,6 +215,52 @@ button:hover {
   transform: translateY(-2px);
 }
 
+#add-task-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+#add-task-btn img {
+  width: 24px;
+  height: 24px;
+  opacity: 0.9;
+}
+
+#add-task-btn:active {
+  opacity: 1; /* Remove transparency when clicked */
+}
+
+#task-progress {
+  padding: 10px;
+  font-size: 15px;
+  color: #432000;
+  background-color: #cfd5e0;
+  border: none;
+  border-radius: 8px;
+  text-align: center;
+  min-width: 170px;
+  appearance: none;
+  cursor: pointer;
+}
+
+#task-progress:focus {
+  outline: none;
+  background-color: #dee0e3;
+}
+
+#task-progress option {
+  background: #fffdf8;
+  color: #432000;
+  padding: 6px;
+}
+
 /* --------------------------------- Animations --------------------------------- */
 .quick-fade-in {
   animation: fadeIn 0.2s ease-out;
@@ -207,17 +275,4 @@ button:hover {
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-.no-tasks-message {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 2rem;
-  opacity: 70%;
-  color: rgba(44, 43, 43, 0.5);
-  pointer-events: none;
-  text-align: center;
-  font-family: "Arial", sans-serif;
 }
