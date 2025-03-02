@@ -1,3 +1,8 @@
+🚀 Try the Live Demo!
+
+Check out the live demo of my To-Do List App and give it a spin! 🎉
+👉 [Live Demo](https://hex-todo-app.netlify.app/)
+
 📌 To-Do List App
 
 Hey there! 👋 Thanks for checking out my To-Do List App. This is a simple and efficient task management tool that allows you to add, edit, delete, and organize your tasks with ease. Below, you'll find instructions on how to set up and use the app. Let's get started! 🚀
@@ -18,7 +23,7 @@ npm create vite@latest your-app
 
 Once your Vite project is created, navigate into your project folder and clone my repository:
 
-git clone <https://github.com/Lee-04-Git/HexSoftwares_ToDoList_Lee.git>
+git clone https://github.com/Lee-04-Git/HexSoftwares_ToDoList_Lee.git
 
 3️⃣ Copy Main Files
 
